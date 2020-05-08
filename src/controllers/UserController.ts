@@ -1,5 +1,7 @@
 import { Request, Response } from 'express'
+
 import User from '../schemas/User'
+import generateToken from '../services/generateToken'
 
 class UserController {
   public async index (req: Request, res: Response): Promise<Response> {
@@ -15,8 +17,9 @@ class UserController {
   public async store (req: Request, res: Response): Promise<Response> {
     try {
       const user = await User.create(req.body)
+      user.password = undefined
 
-      return res.status(200).json(user)
+      return res.status(200).json({ user, token: generateToken({ id: user._id }) })
     } catch (error) {
       return res.status(400).json({ error: 'error creating user' })
     }
