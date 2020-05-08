@@ -4,7 +4,10 @@ import Message from '../schemas/Message'
 class MessageController {
   public async index (req: Request, res: Response): Promise<Response> {
     try {
-      const messages = await Message.find()
+      const messages = await Message.find({
+        receiver: String(req.headers.receiver),
+        sender: String(req.headers.sender)
+      })
 
       return res.status(200).json(messages)
     } catch (error) {
