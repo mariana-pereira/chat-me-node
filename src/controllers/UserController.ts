@@ -41,6 +41,7 @@ class UserController {
   public async delete (req: Request, res: Response): Promise<Response> {
     try {
       await User.findByIdAndRemove(req.params.id)
+
       return res.send()
     } catch (error) {
       return res.status(400).json({ error: 'error deleting user' })
