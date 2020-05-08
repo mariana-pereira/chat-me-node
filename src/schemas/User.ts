@@ -3,7 +3,8 @@ import { Schema, model, Document } from 'mongoose'
 interface UserInterface extends Document {
   name: string,
   email: string,
-  password: string
+  password: string,
+  avatar: string
 }
 
 const UserSchema = new Schema({
@@ -19,6 +20,10 @@ const UserSchema = new Schema({
   password: {
     type: String,
     required: true
+  },
+  avatar: {
+    type: Schema.Types.ObjectId,
+    ref: 'File'
   }
 }, {
   timestamps: true
